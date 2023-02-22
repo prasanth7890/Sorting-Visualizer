@@ -1,0 +1,17 @@
+
+.array-container {
+  padding-top: 650px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+  
+.array-bar {
+    width: 20px;
+    background-color: turquoise;
+    /* border: 0.5px solid black; */
+    margin: 0 1px;
+  }
+
+  
