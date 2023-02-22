@@ -4,12 +4,13 @@ import { Button } from "react-bootstrap";
 import { getQuickSortAnimations } from "../Algorithms/quickSort";
 import { getMergeSortAnimations } from "../Algorithms/mergesort";
 import { getBubbleSortAnimations } from "../Algorithms/bubblesort";
+import { insertionSort} from '../Algorithms/insertionSort';
 
 // Change this value for the speed of the animations.
-const ANIMATION_SPEED_MS = 10;
+const ANIMATION_SPEED_MS = 100;
 
 // Change this value for the number of bars (value) in the array.
-const NUMBER_OF_ARRAY_BARS = 50;
+const NUMBER_OF_ARRAY_BARS = Math.floor((window.screen.width - 486)/20);
 
 // This is the main color of the array bars.
 const PRIMARY_COLOR = "turquoise";
@@ -129,7 +130,11 @@ export default class SortingVisualizer extends React.Component {
       else return PRIMARY_COLOR;
   }
 
-  heapSort() {}
+  insertionSort() {
+    let x = [12,11,13,5,6];
+    insertionSort(x, x.length);
+    console.log(x);
+  }
 
   bubbleSort() {
     const animations = getBubbleSortAnimations(this.state.array);
@@ -183,8 +188,8 @@ export default class SortingVisualizer extends React.Component {
         <Button size="sm" onClick={() => this.mergeSort()}>
           Merge Sort
         </Button>
-        <Button size="sm" onClick={() => this.heapSort()}>
-          Heap Sort
+        <Button size="sm" onClick={() => this.insertionSort()}>
+          Insertion Sort
         </Button>
         <Button size="sm" onClick={() => this.quickSort()}>
           Quick Sort
