@@ -1,4 +1,10 @@
-# Getting Started with Create React App
+ # A web development project built with Reactjs which is used to visualize the sorting algorithms and performs the operation of algorithms step by step
+
+
+
+
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
