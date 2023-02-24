@@ -21,3 +21,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+src/Array.css
+src/Array.js
+src/Box.js
+src/Algorithms/heapsort.js

@@ -4,13 +4,13 @@ import { Button } from "react-bootstrap";
 import { getQuickSortAnimations } from "../Algorithms/quickSort";
 import { getMergeSortAnimations } from "../Algorithms/mergesort";
 import { getBubbleSortAnimations } from "../Algorithms/bubblesort";
-import { insertionSort} from '../Algorithms/insertionSort';
+import { getInsertionSortAnimations } from "../Algorithms/insertionSort";
 
 // Change this value for the speed of the animations.
-const ANIMATION_SPEED_MS = 100;
+const ANIMATION_SPEED_MS = 10;
 
 // Change this value for the number of bars (value) in the array.
-const NUMBER_OF_ARRAY_BARS = Math.floor((window.screen.width - 486)/20);
+const NUMBER_OF_ARRAY_BARS = Math.floor((window.screen.width - 486) / 20);
 
 // This is the main color of the array bars.
 const PRIMARY_COLOR = "turquoise";
@@ -19,8 +19,7 @@ const PRIMARY_COLOR = "turquoise";
 const SECONDARY_COLOR = "red";
 
 // This is the color of array bars of pivot in quicksort
-const PIVOT_COLOR = 'yellow';
-
+const PIVOT_COLOR = "yellow";
 
 export default class SortingVisualizer extends React.Component {
   constructor(props) {
@@ -40,7 +39,7 @@ export default class SortingVisualizer extends React.Component {
     for (let i = 0; i < NUMBER_OF_ARRAY_BARS; i++) {
       array.push(randomIntFromInterval(5, 600));
     }
-    this.setState({ array: array});
+    this.setState({ array: array });
   }
 
   mergeSort() {
@@ -66,21 +65,19 @@ export default class SortingVisualizer extends React.Component {
         }, i * ANIMATION_SPEED_MS);
       }
     }
-
   }
 
   quickSort() {
     const animations = getQuickSortAnimations(this.state.array);
-    console.log(animations);
     for (let i = 0; i < animations.length; i++) {
       const arrayBars = document.getElementsByClassName("array-bar");
-      if(animations[i].length === 3) {
+      if (animations[i].length === 3) {
         const [barOneIdx, barTwoIdx, p] = animations[i];
         const barOneStyle = arrayBars[barOneIdx].style;
-        const barTwoStyle = arrayBars[barTwoIdx].style; 
-        if(p === 'PIVOT') {
-           // swapping of the heights
-          setTimeout(()=> {
+        const barTwoStyle = arrayBars[barTwoIdx].style;
+        if (p === "PIVOT") {
+          // swapping of the heights
+          setTimeout(() => {
             const temp = barOneStyle.height;
             barOneStyle.height = barTwoStyle.height;
             barTwoStyle.height = temp;
@@ -88,52 +85,86 @@ export default class SortingVisualizer extends React.Component {
             barOneStyle.backgroundColor = PRIMARY_COLOR;
             barTwoStyle.backgroundColor = PRIMARY_COLOR;
           }, i * ANIMATION_SPEED_MS);
-        }
-        else {
-          setTimeout(()=> {
+        } else {
+          setTimeout(() => {
             const temp = barOneStyle.height;
             barOneStyle.height = barTwoStyle.height;
             barTwoStyle.height = temp;
-          }, i * ANIMATION_SPEED_MS); 
-
+          }, i * ANIMATION_SPEED_MS);
         }
-      }
-      else {
-        const [First,Second] = animations[i];
-        if(First === 'pivot') {
+      } else {
+        const [First, Second] = animations[i];
+        if (First === "pivot") {
           const barSecondStyle = arrayBars[Second].style;
           setTimeout(() => {
             barSecondStyle.backgroundColor = PIVOT_COLOR;
             barSecondStyle.innerHTML = "Prasanth";
           }, i * ANIMATION_SPEED_MS);
-        }
-        else {
+        } else {
           const barONESTYLE = arrayBars[First].style;
           const barSECONDSTYLE = arrayBars[Second].style;
           setTimeout(() => {
-            var color = this.getColorChange(animations[i], animations[i+1]);
+            var color = this.getColorChange(animations[i], animations[i + 1]);
             barONESTYLE.backgroundColor = color;
             barSECONDSTYLE.backgroundColor = color;
           }, i * ANIMATION_SPEED_MS);
         }
       }
     }
-
   }
 
   getColorChange(one, two) {
     const [a, b] = one;
     const [c, d] = two;
-      if((a === c) && (b===d)) {
-        return SECONDARY_COLOR;
-      }
-      else return PRIMARY_COLOR;
+    if (a === c && b === d) {
+      return SECONDARY_COLOR;
+    } else return PRIMARY_COLOR;
   }
 
   insertionSort() {
-    let x = [12,11,13,5,6];
-    insertionSort(x, x.length);
-    console.log(x);
+    const animations = getInsertionSortAnimations(this.state.array);
+    for (let i = 0; i < animations.length; i++) {
+      const arrayBars = document.getElementsByClassName("array-bar");
+      const isKey = animations[i].length === 4 ? true : false;
+      if (isKey) {
+        const [barOneIdx, key, k, value] = animations[i];
+        const barOneStyle = arrayBars[barOneIdx].style;
+        if(value === 1) {
+          const color = SECONDARY_COLOR;
+          setTimeout(() => {
+            barOneStyle.backgroundColor = color;
+          }, i * ANIMATION_SPEED_MS);
+        }
+        else {
+          const color = PRIMARY_COLOR;
+          setTimeout(() => {
+            barOneStyle.backgroundColor = color;
+            barOneStyle.height = key + "px";
+          }, i * ANIMATION_SPEED_MS);
+        }
+      } 
+      else {
+        const [barOneIdx, barTwoIdx, value] = animations[i];
+        const barOneStyle = arrayBars[barOneIdx].style;
+        const barTwoStyle = arrayBars[barTwoIdx].style;
+        if(value === 1) {
+          const color = SECONDARY_COLOR;
+          setTimeout(() => {
+            barOneStyle.backgroundColor = color;
+            barTwoStyle.backgroundColor = color;
+          }, i * ANIMATION_SPEED_MS);
+        }
+        else {
+          const color = PRIMARY_COLOR;
+          setTimeout(() => {
+            barOneStyle.backgroundColor = color;
+            barTwoStyle.backgroundColor = color;
+            barOneStyle.height = barTwoStyle.height;
+          }, i * ANIMATION_SPEED_MS);
+        }
+        
+      }
+    }
   }
 
   bubbleSort() {
@@ -164,7 +195,6 @@ export default class SortingVisualizer extends React.Component {
         }, i * ANIMATION_SPEED_MS);
       }
     }
-    
   }
 
   render() {
